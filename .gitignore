@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 build/
 dist/
+
 results/*/
 !results/.gitkeep
-.venv/*
+
+.venv/
