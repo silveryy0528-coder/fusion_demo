@@ -8,4 +8,7 @@ dist/
 results/*/
 !results/.gitkeep
 
-.venv/
+data/*
+!data/.gitkeep
+
+.venv/*
