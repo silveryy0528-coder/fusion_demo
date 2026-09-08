@@ -60,7 +60,7 @@ def load_manifest(data_dir: Path) -> Manifest:
     Raises
     ------
     FileNotFoundError
-        If ``manifest.json`` is missing from ``data_dir``.
+        If ``manifest.json`` is missing in ``data_dir``.
     """
     manifest_path = data_dir / "manifest.json"
     if not manifest_path.is_file():
@@ -111,11 +111,11 @@ def load_modality(manifest: Manifest, name: str) -> dict[str, np.ndarray]:
             f"Available modalities: {sorted(manifest.modalities)}"
         )
 
-    modality_name = manifest.modalities[name]
-    npz_path = manifest.source_path / modality_name["file"]
+    entry = manifest.modalities[name]
+    npz_path = manifest.source_path / entry["file"]
     if not npz_path.is_file():
         raise FileNotFoundError(
-            f"Modality '{name}' references '{modality_name['file']}', "
+            f"Modality '{name}' references '{entry['file']}', "
             f"but no such file was found in {manifest.source_path}."
         )
 
@@ -123,10 +123,10 @@ def load_modality(manifest: Manifest, name: str) -> dict[str, np.ndarray]:
         reconstructions = {}
         expected_shape = manifest.shape
 
-        for algorithm in modality_name["algorithms"]:
+        for algorithm in entry["algorithms"]:
             if algorithm not in npz_file:
                 raise ValueError(
-                    f"Modality '{name}' ({modality_name['file']}) is missing "
+                    f"Modality '{name}' ({entry['file']}) is missing "
                     f"expected algorithm key '{algorithm}'. "
                     f"Available keys: {list(npz_file.keys())}"
                 )
@@ -165,11 +165,6 @@ def load_dataset(
     dict[str, dict[str, numpy.ndarray]]
         Maps modality name to its loaded reconstructions (algorithm name
         -> array), as returned by `load_modality`.
-
-    Raises
-    ------
-    KeyError
-        If a requested modality is not registered in the manifest.
     """
     manifest = load_manifest(data_dir)
     names = modality_names if modality_names is not None else list(manifest.modalities)
@@ -205,12 +200,6 @@ def save_fusion_result(
     -------
     Path
         The ``output_dir`` the results were written to.
-
-    Writes
-    ------
-    - ``<output_dir>/fusion.npy``: the fused array.
-    - ``<output_dir>/metrics.json``: the metrics dict.
-    - ``<output_dir>/config.json``: the config dict.
     """
     output_dir.mkdir(parents=True, exist_ok=True)
 
