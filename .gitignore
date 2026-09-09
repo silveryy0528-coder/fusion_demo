@@ -9,7 +9,7 @@ results/*/
 !results/.gitkeep
 
 data/*
-!data/.gitkeep
+!data/README.md
 !data/synthetic/
 !data/synthetic/**
 
