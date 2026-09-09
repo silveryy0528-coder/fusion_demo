@@ -44,7 +44,7 @@ def _stdfilt(x: np.ndarray, w_sz: tuple[int, ...]) -> np.ndarray:
     coeff = np.prod(w_sz) / (np.prod(w_sz) - 1)
     c1 = ndimage.uniform_filter(x, w_sz, mode="reflect") * np.sqrt(coeff)
     c2 = ndimage.uniform_filter(x * x, w_sz, mode="reflect") * coeff
-    return np.nan_to_num(np.sqrt(c2 - c1 * c1))
+    return np.sqrt(np.maximum(c2 - c1 * c1, 0.0))
 
 
 def generate_feature_images(

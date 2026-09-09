@@ -6,11 +6,11 @@
 data_dir: ../data/synthetic
 
 # Modality to predict.
-target_modality: Au
+target_modality: Ag
 
 # Modalities used as predictors (all of their reconstructions contribute
 # feature columns -- see fusion_demo.fusion.build_cross_modality_model).
-predictor_modalities: [haadf, Ag]
+predictor_modalities: [haadf, Au]
 
 # Feature filters applied to every predictor reconstruction
 # (see fusion_demo.features for available names).
