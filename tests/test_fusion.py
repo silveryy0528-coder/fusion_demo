@@ -57,7 +57,7 @@ def test_pls_regression_WHEN_n_components_not_given_THEN_uses_default():
 
 def test_build_cross_modality_model_WHEN_shape_mismatch_THEN_raises_value_error():
     target = np.ones((8, 8))
-    predictors = {"bad": np.ones((4, 4))}
+    predictors = {"bad": {"SIRT": np.ones((4, 4))}}
     with pytest.raises(ValueError):
         build_cross_modality_model(predictors, target, filters=["gaussf"])
 
@@ -71,11 +71,27 @@ def test_build_cross_modality_model_WHEN_called_THEN_fused_shape_matches_target(
     target = 0.6 * haadf - 0.4 * ag + 0.05 * np.sin(3 * np.pi * xx)
 
     predictors = {
-        "haadf": haadf,
-        "Ag": ag,
+        "haadf": {"SIRT": haadf},
+        "Ag": {"SIRT": ag},
     }
     fused, _ = build_cross_modality_model(predictors, target, filters=["gaussf"])
     assert fused.shape == target.shape
+
+
+def test_build_cross_modality_model_WHEN_multiple_reconstructions_per_modality_THEN_each_contributes_features():
+    x = np.linspace(0, 1, 8)
+    xx, yy = np.meshgrid(x, x)
+
+    target = xx + yy
+    predictors = {
+        "haadf": {
+            "SIRT": target.copy(),
+            "FBP": target.copy(),
+        },
+    }
+    _, coef = build_cross_modality_model(predictors, target, filters=[])
+    # 2 algorithms x 1 feature column (raw, no filters) each = 2 columns.
+    assert coef.shape[-1] == 2
 
 
 def test_build_cross_modality_model_WHEN_predictor_equals_target_THEN_high_correlation():
@@ -83,7 +99,7 @@ def test_build_cross_modality_model_WHEN_predictor_equals_target_THEN_high_corre
     xx, yy = np.meshgrid(x, x)
 
     target = xx + yy
-    predictors = {"haadf": target.copy()}
+    predictors = {"haadf": {"SIRT": target.copy()}}
 
     fused, _ = build_cross_modality_model(predictors, target, filters=["gaussf"])
     corr = np.corrcoef(fused.ravel(), target.ravel())[0, 1]

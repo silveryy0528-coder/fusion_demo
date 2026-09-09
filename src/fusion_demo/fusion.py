@@ -56,7 +56,7 @@ def pls_regression(
 
 
 def build_cross_modality_model(
-        predictors: dict[str, np.ndarray],
+        predictors: dict[str, dict[str, np.ndarray]],
         target: np.ndarray,
         filters: list[str],
         gauss_base: float = 2 ** 0.5,
@@ -65,20 +65,21 @@ def build_cross_modality_model(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Build the cross-modality fusion model and predict the target.
 
-    Generates feature images for each predictor modality, concatenates 
-    them into one feature matrix, and fits/predicts with `pls_regression`.
+    Generates feature images for every reconstruction of every
+    predictor modality, concatenates them into one feature
+    matrix, and fits/predicts with `pls_regression`.
 
     Parameters
     ----------
-    predictors : dict[str, numpy.ndarray]
-        Maps modality name (e.g. "haadf", "Ag") to its single
-        (already-selected/denoised) reconstruction array. All arrays
-        must share the same shape as ``target``.
+    predictors : dict[str, dict[str, numpy.ndarray]]
+        Maps modality name (e.g. "haadf", "Ag") to its reconstructions
+        (algorithm name -> array), as returned by `fusion_demo.io.load_modality`.
+        All arrays must share the same shape as ``target``.
     target : numpy.ndarray
         The (denoised) target element array to predict, same shape as
         each predictor array.
     filters : list[str]
-        Feature filters to apply to each predictor modality (see
+        Feature filters to apply to each predictor reconstruction (see
         `fusion_demo.features` for available names).
     gauss_base : float
     gauss_depth : int
@@ -91,25 +92,27 @@ def build_cross_modality_model(
         Fusion result, reshaped back to ``target.shape``.
     coef : numpy.ndarray
         PLS regression coefficients (one per feature column, across all
-        predictor modalities).
+        predictor reconstructions).
 
     Raises
     ------
     ValueError
-        If any predictor array's shape does not match ``target.shape``.
+        If any predictor reconstruction's shape does not match ``target.shape``.
     """
     shape = target.shape
 
-    for name, array in predictors.items():
-        if array.shape != shape:
-            raise ValueError(
-                f"Predictor '{name}' has shape {array.shape}, "
-                f"expected {shape} (target's shape)."
-            )
+    for modality_name, reconstructions in predictors.items():
+        for algorithm_name, array in reconstructions.items():
+            if array.shape != shape:
+                raise ValueError(
+                    f"Predictor '{modality_name}' algorithm '{algorithm_name}' "
+                    f"has shape {array.shape}, expected {shape} (target's shape)."
+                )
 
     feature_blocks = [
         generate_feature_images(array, filters, gauss_base, gauss_depth)
-        for array in predictors.values()
+        for reconstructions in predictors.values()
+        for array in reconstructions.values()
     ]
     X = np.concatenate(feature_blocks, axis=1)
     y = target.ravel()
