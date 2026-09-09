@@ -1,0 +1,25 @@
+# Configuration for scripts/run_fusion.py
+#
+# data_dir must contain a manifest.json + one <modality>.npz per modality
+# (see data/README.md for the data contract).
+
+data_dir: ../data/synthetic
+
+# Modality to predict.
+target_modality: Au
+
+# Modalities used as predictors (all of their reconstructions contribute
+# feature columns -- see fusion_demo.fusion.build_cross_modality_model).
+predictor_modalities: [haadf, Ag]
+
+# Feature filters applied to every predictor reconstruction
+# (see fusion_demo.features for available names).
+filters: [gaussf, rangefilt, stdfilt, gradmag, gausslap, maxf, minf]
+
+# Optional; defaults shown are fusion_demo's own defaults.
+gauss_base: 1.0
+gauss_depth: 1
+n_components: null
+
+# Base folder for run outputs; each run is saved to results_dir/<timestamp>/.
+results_dir: ../results

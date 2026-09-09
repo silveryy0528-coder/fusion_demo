@@ -64,7 +64,6 @@ def run_pipeline(
 
     target = denoise(dataset[target_modality])
     predictors = {name: dataset[name] for name in predictor_modalities}
-    print(predictors)
 
     fused, coef = build_cross_modality_model(
         predictors,
