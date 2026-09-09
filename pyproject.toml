@@ -15,12 +15,13 @@ dependencies = [
     "scipy",
     "scikit-learn",
     "matplotlib",
-    "pyyaml",
+    "pyyaml"
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "black"
 ]
 
 [tool.setuptools.packages.find]
