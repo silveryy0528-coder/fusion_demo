@@ -48,7 +48,7 @@ def pls_regression(
     if n_components is None:
         n_components = min(X_z.shape[0] - 1, X_z.shape[1])
 
-    pls = PLSRegression(n_components=n_components)
+    pls = PLSRegression(n_components=n_components, scale=False)
     pls.fit(X_z, y_z)
     y_pred = pls.predict(X_z)
 

@@ -24,9 +24,9 @@ from sklearn.decomposition import NMF
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 # Filters independently applied to the reconstruction array
-_IMAGE_FILTERS  = {"rangefilt", "stdfilt", "gradmag", "gausslap", "gaussf", "maxf", "minf"}
+IMAGE_FILTERS = {"rangefilt", "stdfilt", "gradmag", "gausslap", "gaussf", "maxf", "minf"}
 # All available filters, including those that consumes the already-built features matrix (e.g., "nmf")
-_ALL_FILTERS = _IMAGE_FILTERS  | {"nmf"}
+ALL_FILTERS = IMAGE_FILTERS | {"nmf"}
 
 
 def _stdfilt(x: np.ndarray, w_sz: tuple[int, ...]) -> np.ndarray:
@@ -76,11 +76,11 @@ def generate_feature_images(
     ValueError
         If ``filters`` contains an unrecognized filter name.
     """
-    unknown = set(filters) - _ALL_FILTERS
+    unknown = set(filters) - ALL_FILTERS
     if unknown:
         raise ValueError(
             f"Unrecognized filter(s): {sorted(unknown)}. "
-            f"Available filters: {sorted(_ALL_FILTERS)}"
+            f"Available filters: {sorted(ALL_FILTERS)}"
         )
 
     window_size = (3,) * reconstruction.ndim
@@ -142,7 +142,7 @@ def number_of_feature_images(
         Number of feature-image columns.
     """
     n_orig = 1  # raw reconstruction, always included
-    for name in _IMAGE_FILTERS :
+    for name in IMAGE_FILTERS:
         if name in filters:
             n_orig += gauss_depth if name == "gaussf" else 1
 
