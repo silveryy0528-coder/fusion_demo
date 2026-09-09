@@ -16,6 +16,7 @@ Available filters (selected via ``filters``, a list of these names):
     - "minf":      local minimum
     - "nmf":       non-negative matrix factorization expansion
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -24,7 +25,15 @@ from sklearn.decomposition import NMF
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 # Filters independently applied to the reconstruction array
-IMAGE_FILTERS = {"rangefilt", "stdfilt", "gradmag", "gausslap", "gaussf", "maxf", "minf"}
+IMAGE_FILTERS = {
+    "rangefilt",
+    "stdfilt",
+    "gradmag",
+    "gausslap",
+    "gaussf",
+    "maxf",
+    "minf",
+}
 # All available filters, including those that consumes the already-built features matrix (e.g., "nmf")
 ALL_FILTERS = IMAGE_FILTERS | {"nmf"}
 
@@ -39,11 +48,11 @@ def _stdfilt(x: np.ndarray, w_sz: tuple[int, ...]) -> np.ndarray:
 
 
 def generate_feature_images(
-        reconstruction: np.ndarray,
-        filters: list[str],
-        gauss_base: float = 2 ** 0.5,
-        gauss_depth: int = 1,
-        n_components: int | None = None,
+    reconstruction: np.ndarray,
+    filters: list[str],
+    gauss_base: float = 2**0.5,
+    gauss_depth: int = 1,
+    n_components: int | None = None,
 ) -> np.ndarray:
     """Generate feature images for a single reconstruction array.
 
@@ -87,18 +96,24 @@ def generate_feature_images(
     columns = [reconstruction.ravel()]
 
     if "rangefilt" in filters:
-        columns.append(ndimage.morphological_gradient(reconstruction, size=window_size).ravel())
+        columns.append(
+            ndimage.morphological_gradient(reconstruction, size=window_size).ravel()
+        )
     if "stdfilt" in filters:
         columns.append(_stdfilt(reconstruction, window_size).ravel())
     if "gradmag" in filters:
-        columns.append(ndimage.gaussian_gradient_magnitude(reconstruction, sigma=1).ravel())
+        columns.append(
+            ndimage.gaussian_gradient_magnitude(reconstruction, sigma=1).ravel()
+        )
     if "gausslap" in filters:
         columns.append(ndimage.gaussian_laplace(reconstruction, sigma=1).ravel())
     if "gaussf" in filters:
         sigmas = gauss_base ** np.arange(1, gauss_depth + 1)
         for sigma in sigmas:
             columns.append(
-                ndimage.gaussian_filter(reconstruction, sigma=sigma, truncate=3.0).ravel()
+                ndimage.gaussian_filter(
+                    reconstruction, sigma=sigma, truncate=3.0
+                ).ravel()
             )
     if "maxf" in filters:
         columns.append(ndimage.maximum_filter(reconstruction, size=window_size).ravel())
@@ -122,9 +137,9 @@ def generate_feature_images(
 
 
 def number_of_feature_images(
-        filters: list[str],
-        gauss_depth: int = 1,
-        n_components: int | None = None,
+    filters: list[str],
+    gauss_depth: int = 1,
+    n_components: int | None = None,
 ) -> int:
     """Compute how many feature-image columns `generate_feature_images`
     will produce for a given filter configuration, without actually
@@ -151,5 +166,3 @@ def number_of_feature_images(
             n_components = n_orig
         return n_orig + n_components
     return n_orig
-
-

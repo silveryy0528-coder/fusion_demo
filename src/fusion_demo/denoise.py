@@ -1,4 +1,5 @@
 """NMF-based denoising for modalities with multiple reconstructions."""
+
 from __future__ import annotations
 
 import numpy as np
@@ -35,7 +36,7 @@ def denoise(reconstructions: dict[str, np.ndarray]) -> np.ndarray:
         channels.append(array.ravel())
     X = np.stack(channels, axis=1)
 
-    nmf = NMF(n_components=1, init="nndsvd", tol=5e-3)
+    nmf = NMF(n_components=1, init="random", tol=5e-3, random_state=0)
     w = nmf.fit_transform(X)
     h = nmf.components_
     h_norm = np.linalg.norm(h)

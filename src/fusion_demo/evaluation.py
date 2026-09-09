@@ -4,6 +4,7 @@ Evaluation metrics for the cross-modality fusion model.
 Quantifies how well the fused prediction reproduces the (denoised)
 target signal.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -33,4 +34,3 @@ def evaluate(target: np.ndarray, fused: np.ndarray) -> dict[str, float]:
     return {
         "cc": pearson_correlation(target, fused),
     }
-

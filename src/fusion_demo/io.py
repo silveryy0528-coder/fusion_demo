@@ -4,6 +4,7 @@ I/O utilities for fusion_demo.
 Handles loading the manifest + per-modality npz files that make up a
 dataset (see `data/README.md`), and saving fusion results + run metadata.
 """
+
 from __future__ import annotations
 
 import json
@@ -34,6 +35,7 @@ class Manifest:
         Folder the manifest was loaded from (used to resolve relative
         npz file paths).
     """
+
     sample_id: str
     shape: tuple[int, ...]
     pixel_size_nm: float | None
@@ -44,6 +46,7 @@ class Manifest:
 # ---------------------------------------------------------------------------
 # Loading
 # ---------------------------------------------------------------------------
+
 
 def load_manifest(data_dir: Path) -> Manifest:
     """Load and parse ``manifest.json`` from a dataset folder.
@@ -143,8 +146,8 @@ def load_modality(manifest: Manifest, name: str) -> dict[str, np.ndarray]:
 
 
 def load_dataset(
-        data_dir: Path,
-        modality_names: list[str] | None = None,
+    data_dir: Path,
+    modality_names: list[str] | None = None,
 ) -> dict[str, dict[str, np.ndarray]]:
     """Load a set of modalities from a dataset folder.
 
@@ -175,11 +178,9 @@ def load_dataset(
 # Saving results
 # ---------------------------------------------------------------------------
 
+
 def save_fusion_result(
-        output_dir: Path,
-        fused: np.ndarray,
-        metrics: dict[str, float],
-        config: dict
+    output_dir: Path, fused: np.ndarray, metrics: dict[str, float], config: dict
 ) -> Path:
     """Save fusion output + evaluation metrics + run config to disk.
 

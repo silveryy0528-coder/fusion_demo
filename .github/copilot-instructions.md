@@ -21,6 +21,7 @@ applyTo: "**"
 
 - Use pytest.
 - Do not test third-party library behavior directly; test the behavior introduced by this project.
+- Use deterministic inputs and conditions for tests whenever possible to ensure reproducibility.
 - Prefer test names in the form:
   `test_<function>_WHEN_<condition>_THEN_<expected_behavior>`.
 - Test observable behavior and important edge cases without unnecessary duplication.

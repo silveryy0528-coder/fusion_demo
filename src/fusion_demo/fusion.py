@@ -5,6 +5,7 @@ Builds a predictor feature matrix from one or more modalities (via
 `fusion_demo.features`) and fits a Partial Least Squares (PLS) regression
 model to predict a target element's (denoised) signal from it.
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -15,9 +16,9 @@ from fusion_demo.features import generate_feature_images
 
 
 def pls_regression(
-        X: np.ndarray,
-        y: np.ndarray,
-        n_components: int | None = None,
+    X: np.ndarray,
+    y: np.ndarray,
+    n_components: int | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Fit a Partial Least Squares regression model and predict on X.
 
@@ -56,12 +57,12 @@ def pls_regression(
 
 
 def build_cross_modality_model(
-        predictors: dict[str, dict[str, np.ndarray]],
-        target: np.ndarray,
-        filters: list[str],
-        gauss_base: float = 2 ** 0.5,
-        gauss_depth: int = 1,
-        n_components: int | None = None,
+    predictors: dict[str, dict[str, np.ndarray]],
+    target: np.ndarray,
+    filters: list[str],
+    gauss_base: float = 2**0.5,
+    gauss_depth: int = 1,
+    n_components: int | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Build the cross-modality fusion model and predict the target.
 
@@ -121,4 +122,3 @@ def build_cross_modality_model(
     fused = y_pred.reshape(shape)
 
     return fused, coef
-
