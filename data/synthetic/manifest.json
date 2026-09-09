@@ -1,0 +1,28 @@
+{
+  "sample_id": "synthetic",
+  "pixel_size_nm": null,
+  "shape": [
+    256,
+    256
+  ],
+  "modalities": {
+    "Ag": {
+      "file": "Ag.npz",
+      "algorithms": [
+        "SIRT"
+      ]
+    },
+    "haadf": {
+      "file": "haadf.npz",
+      "algorithms": [
+        "SIRT"
+      ]
+    },
+    "Au": {
+      "file": "Au.npz",
+      "algorithms": [
+        "SIRT"
+      ]
+    }
+  }
+}

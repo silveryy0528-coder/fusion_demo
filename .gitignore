@@ -10,5 +10,7 @@ results/*/
 
 data/*
 !data/.gitkeep
+!data/synthetic/
+!data/synthetic/**
 
 .venv/*
