@@ -18,7 +18,7 @@ from fusion_demo.denoise import denoise
 
 from plotting import plot_fusion_summary
 
-CONFIG_PATH = Path(__file__).parent / "config.yaml"
+CONFIG_PATH = Path(__file__).parent / "fusion_config.yaml"
 
 
 def main() -> None:

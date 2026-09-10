@@ -81,6 +81,7 @@ def run_pipeline(
 
     if output_dir is not None:
         config = {
+            "data_dir": str(data_dir),
             "target_modality": target_modality,
             "predictor_modalities": predictor_modalities,
             "filters": filters,
