@@ -17,7 +17,7 @@ predictor_modalities: [haadf, Au]
 filters: [gaussf, rangefilt, stdfilt, gradmag, gausslap, maxf, minf]
 
 # Optional; defaults shown are fusion_demo's own defaults.
-gauss_base: 1.0
+gauss_base: 1.41421356237 # sqrt(2)
 gauss_depth: 1
 n_components: null
 

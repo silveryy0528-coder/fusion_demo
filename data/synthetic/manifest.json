@@ -9,19 +9,22 @@
     "Ag": {
       "file": "Ag.npz",
       "algorithms": [
-        "SIRT"
+        "SIRT",
+        "FBP"
       ]
     },
     "haadf": {
       "file": "haadf.npz",
       "algorithms": [
-        "SIRT"
+        "SIRT",
+        "FBP"
       ]
     },
     "Au": {
       "file": "Au.npz",
       "algorithms": [
-        "SIRT"
+        "SIRT",
+        "FBP"
       ]
     }
   }

@@ -64,6 +64,10 @@ def run_pipeline(
 
     target = denoise(dataset[target_modality])
     predictors = {name: dataset[name] for name in predictor_modalities}
+    # Show what reconstructions are available for the predictors
+    print("\n----- Available predictor reconstructions: -----")
+    for name, modality in predictors.items():
+        print(f"Predictor '{name}' has reconstructions {modality.keys()}")
 
     fused, coef = build_cross_modality_model(
         predictors,

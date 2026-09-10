@@ -49,7 +49,7 @@ def main() -> None:
         n_components=n_components,
         output_dir=output_dir,
     )
-    print(50 * "-")
+    print("\n----- Fusion run summary: -----")
     print(f"Run saved to {output_dir}")
     print(f"Metrics: {metrics}")
 
