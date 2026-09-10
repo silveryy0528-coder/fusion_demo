@@ -23,9 +23,9 @@ Run the pipeline on the included synthetic dataset:
 python scripts/run_fusion.py
 ```
 
-This reads `scripts/config.yaml`, runs the fusion pipeline, and saves the
+This reads `scripts/fusion_config.yaml`, runs the fusion pipeline, and saves the
 result, metrics, config, and a summary figure to `results/<timestamp>/`.
-Edit `config.yaml` to point at a different dataset or change the target
+Edit `fusion_config.yaml` to point at a different dataset or change the target
 modality / predictors / filters.
 
 Run the test suite:

@@ -52,9 +52,9 @@ def main() -> None:
     dataset = load_dataset(data_dir, modality_names=[target_modality])
     target = denoise(dataset[target_modality])
 
-    fit_agreement = evaluate(target, fused)
-    fused_accuracy = evaluate(ground_truth, fused)
-    target_accuracy = evaluate(ground_truth, target)
+    fit_agreement = evaluate(target, fused)["cc"]
+    fused_accuracy = evaluate(ground_truth, fused)["cc"]
+    target_accuracy = evaluate(ground_truth, target)["cc"]
 
     print(f"Evaluating {run_dir} (target modality: '{target_modality}')")
     print(f"  fit agreement  (target vs. fused):        {fit_agreement}")

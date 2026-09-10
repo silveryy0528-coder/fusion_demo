@@ -14,6 +14,16 @@ def test_pls_regression_WHEN_called_THEN_prediction_shape_matches_n_samples():
     assert y_pred.shape == (4,)
 
 
+def test_pls_regression_WHEN_target_has_nonstandard_scale_THEN_prediction_restores_target_scale():
+    t = np.linspace(-1, 1, 20)
+    X = t[:, None]
+    y = 50.0 + 20.0 * t
+
+    _, y_pred = pls_regression(X, y, n_components=1)
+
+    np.testing.assert_allclose(y_pred, y, rtol=1e-5, atol=1e-5)
+
+
 def test_pls_regression_WHEN_known_linear_relation_THEN_recovers_high_correlation():
     t = np.linspace(-1, 1, 10)
     X = np.column_stack(

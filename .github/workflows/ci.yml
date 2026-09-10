@@ -1,5 +1,5 @@
 # A CI pipeline to test the code on:
-# 1. Windows with Python 3.10, 3.11, and 3.12
+# 1. Windows and Ubuntu with Python 3.10, 3.11, and 3.12
 # 2. Each commit to a pull request to the main branch
 # 3. Each push to the repository
 

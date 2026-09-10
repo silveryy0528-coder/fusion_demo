@@ -11,9 +11,9 @@ Each dataset lives in its own folder (e.g. `data/synthetic/`) containing a
   "pixel_size_nm": null,
   "shape": [256, 256],
   "modalities": {
-    "haadf": {"file": "haadf.npz", "algorithms": ["SIRT"]},
-    "Ag":    {"file": "Ag.npz",    "algorithms": ["SIRT"]},
-    "Au":    {"file": "Au.npz",    "algorithms": ["SIRT"]}
+    "haadf": {"file": "haadf.npz", "algorithms": ["SIRT", "FBP"]},
+    "Ag":    {"file": "Ag.npz",    "algorithms": ["SIRT", "FBP"]},
+    "Au":    {"file": "Au.npz",    "algorithms": ["SIRT", "FBP"]}
   }
 }
 ```
