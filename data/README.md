@@ -38,3 +38,12 @@ NMF (`fusion_demo.denoise.denoise`); if it's used as a **predictor**, every
 reconstruction contributes its own feature columns.
 
 See [`src/fusion_demo/io.py`](../src/fusion_demo/io.py) for the loading/validation code.
+
+## `ground_truth/` (optional)
+
+If a dataset folder contains a `ground_truth/` subfolder with a
+`<target_modality>_GT.npy` array (same shape as the other modalities), the
+fusion result for that target can be evaluated against it with
+`scripts/run_evaluation.py` -- see the root [README](../README.md). This is
+only meaningful for synthetic data, since ground truth doesn't exist for
+real reconstructions.
