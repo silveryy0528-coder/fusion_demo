@@ -51,7 +51,7 @@ def main() -> None:
     )
     print("\n----- Fusion run summary: -----")
     print(f"Run saved to {output_dir}")
-    print(f"Metrics: {metrics}")
+    print(f"Fit agreement (target vs. fused): {metrics}")
 
     # Reload haadf + target for display in the summary figure.
     display_dataset = load_dataset(data_dir, modality_names=["haadf", target_modality])

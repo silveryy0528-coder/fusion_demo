@@ -44,14 +44,18 @@ def pls_regression(
         Predicted target values, shape ``(n_samples,)``.
     """
     X_z = stats.zscore(X, axis=0, ddof=1)
-    y_z = stats.zscore(y, axis=0, ddof=1)
+    y_mean, y_std = y.mean(), y.std(ddof=1)
+    y_z = (y - y_mean) / y_std
 
     if n_components is None:
         n_components = min(X_z.shape[0] - 1, X_z.shape[1])
 
     pls = PLSRegression(n_components=n_components, scale=False)
     pls.fit(X_z, y_z)
-    y_pred = pls.predict(X_z)
+    y_pred_z = pls.predict(X_z)
+
+    # Restore target value
+    y_pred = y_pred_z * y_std + y_mean
 
     return pls.coef_, y_pred.ravel()
 

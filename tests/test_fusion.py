@@ -29,10 +29,7 @@ def test_pls_regression_WHEN_known_linear_relation_THEN_recovers_high_correlatio
 
     _, y_pred = pls_regression(X, y)
 
-    y_z = (y - y.mean()) / y.std(
-        ddof=1
-    )  # manually z-score the target for correlation comparison
-    corr = np.corrcoef(y_pred, y_z)[0, 1]
+    corr = np.corrcoef(y_pred, y)[0, 1]
     assert corr > 0.99
 
 
