@@ -1,8 +1,8 @@
 """
 Run the cross-modality fusion pipeline end-to-end from a YAML config.
 
-Usage: edit scripts/config.yaml, then run this script directly.
-See scripts/config.yaml for the config schema.
+Usage: edit scripts/fusion_config.yaml, then run this script directly.
+See scripts/fusion_config.yaml for the config schema.
 """
 
 from __future__ import annotations

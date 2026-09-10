@@ -7,7 +7,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter, rotate
 
 
-ANGLES_DEG = np.arange(-90.0, 90.0 + 5.0, 2.0)
+ANGLES_DEG = np.arange(-88.0, 88.0 + 2.0, 2.0)
 
 
 def add_poisson_gaussian_noise(
@@ -159,14 +159,7 @@ def simulate_fbp_reconstruction(
     background_counts: float,
     psf_sigma: float,
 ) -> np.ndarray:
-    """
-    Generate an FBP reconstruction from 31 limited-angle noisy projections.
-
-    The angle range (-75 to +75 degrees in 5-degree increments) follows the
-    experimental acquisition described in the original fusion paper. Limited
-    angular coverage and projection noise create the characteristic
-    star-shaped streak artifacts seen in FBP reconstructions.
-    """
+    """Generate an FBP-like reconstruction from noisy synthetic projections."""
     source = gaussian_filter(
         ideal_map.astype(float),
         sigma=psf_sigma,

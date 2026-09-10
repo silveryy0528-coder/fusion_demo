@@ -12,7 +12,7 @@ def pearson_correlation(reference: np.ndarray, fused: np.ndarray) -> float:
 
 
 def evaluate(reference: np.ndarray, fused: np.ndarray) -> dict[str, float]:
-    """Evaluate the reliability of a fusion result.
+    """Evaluate a fusion result against a reference array.
 
     Parameters
     ----------
