@@ -1,0 +1,9 @@
+# Configuration for scripts/run_evaluation.py
+#
+# Evaluates a previously saved fusion run against ground truth, without
+# re-running the fit. Only meaningful for synthetic data where ground
+# truth is available (data_dir/ground_truth/<target_modality>_GT.npy).
+
+# Path to the run folder to evaluate (results/<run_name>/, as printed by
+# run_fusion.py / saved by fusion_demo.io.save_fusion_result).
+run_dir: ../results/20260910_095607
