@@ -6,4 +6,4 @@
 
 # Path to the run folder to evaluate (results/<run_name>/, as printed by
 # run_fusion.py / saved by fusion_demo.io.save_fusion_result).
-run_dir: ../results/20260910_095607
+run_dir: ../results/20260910_103331

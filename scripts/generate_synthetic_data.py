@@ -7,7 +7,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter, rotate
 
 
-ANGLES_DEG = np.arange(-75.0, 75.0 + 5.0, 5.0)
+ANGLES_DEG = np.arange(-90.0, 90.0 + 5.0, 2.0)
 
 
 def add_poisson_gaussian_noise(
@@ -409,9 +409,10 @@ def main() -> None:
         au_gt,
         ag_gt,
     ) = create_au_ag_nanoparticle(
+        shape=(256, 256),
         particle_axes=(95, 90),
         au_axes=(55, 50),
-        au_offset=(5, 20),
+        au_offset=(5, 25),
         seed=0,
     )
 
